@@ -22,7 +22,7 @@
       button.textContent = 'Bypass Paywall';
       button.style.cssText = `
           position: fixed;
-          top: 20px;
+          bottom: 20px;
           right: 20px;
           z-index: 9999;
           padding: 10px 15px;
@@ -32,7 +32,17 @@
           border-radius: 5px;
           cursor: pointer;
           font-weight: bold;
+          opacity: 0.8;
+          transition: opacity 0.3s;
       `;
+
+      button.addEventListener('mouseover', function() {
+          this.style.opacity = '1';
+      });
+
+      button.addEventListener('mouseout', function() {
+          this.style.opacity = '0.8';
+      });
 
       button.addEventListener('click', function() {
           window.location.href = 'https://freedium.cfd/' + window.location.href;

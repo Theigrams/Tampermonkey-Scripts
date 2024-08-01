@@ -38,3 +38,21 @@ This script enhances the arXiv abstract pages with additional functionality.
 4. Use the new buttons and links added to the page for enhanced functionality.
 
 **Version:** 1.1
+
+### 3. Medium Bypass Button (medium-bypass-button.user.js)
+
+This script adds a button to Medium pages to bypass the paywall using freedium.cfd.
+
+**Features:**
+- Adds a "Bypass Paywall" button to the bottom right corner of Medium pages.
+- The button is semi-transparent and becomes fully opaque on hover.
+- Clicking the button redirects the user to the same article on freedium.cfd, bypassing the paywall.
+- Works on both medium.com and custom domain Medium pages.
+
+**Usage:**
+1. Install the Tampermonkey extension in your browser.
+2. Add the script to Tampermonkey.
+3. Visit any Medium article page.
+4. Click the "Bypass Paywall" button in the bottom right corner to read the full article without restrictions.
+
+**Version:** 1.0
