@@ -29,8 +29,7 @@ This script enhances the arXiv abstract pages with additional functionality.
 **Features:**
 - Adds an "Open in Overleaf" button to open the paper directly in Overleaf.
 - Provides a link to view the paper in HTML5 format using ar5iv.
-- Offers a "GPT辅助阅读" (GPT-assisted reading) link.
-- Includes a "一键翻译" (One-click translation) link for easy translation.
+- Includes a "有道翻译" (Youdao Translation) link for easy translation.
 
 **Usage:**
 1. Install the Tampermonkey extension in your browser.

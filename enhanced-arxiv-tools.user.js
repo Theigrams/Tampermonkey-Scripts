@@ -61,14 +61,12 @@
     }
 
     function init() {
-        const arxiwUrl = window.location.href.replace(/arxiv\.org/, 'arxiw.org');
         const ar5ivUrl = `https://ar5iv.org${location.pathname}`;
         const translationUrl = `https://fanyi.youdao.com/trans/#/home?keyfrom=fanyiweb&url=${window.location.href}&type=undefined`;
 
         addNewLink('#', 'Open in Overleaf', convertToZip);
         addNewLink(ar5ivUrl, 'HTML5 (ar5iv)');
-        addNewLink(arxiwUrl, 'GPT辅助阅读');
-        addNewLink(translationUrl, '一键翻译');
+        addNewLink(translationUrl, '有道翻译');
     }
 
     init();
