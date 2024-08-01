@@ -3,7 +3,7 @@
 // @namespace    http://tampermonkey.net/
 // @version      1.1
 // @description  Enhances arXiv page with multiple features: Open in Overleaf, HTML5 view, GPT-assisted reading, and one-click translation.
-// @author       JinZhang
+// @author       Jin Zhang
 // @match        https://arxiv.org/abs/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=arxiv.org
 // @run-at       document-idle
