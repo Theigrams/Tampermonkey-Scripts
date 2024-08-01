@@ -21,3 +21,21 @@ This script enhances the LaTeX formula copying experience on Zhihu (知乎) page
 4. Click on a formula to copy its LaTeX code to your clipboard.
 
 **Version:** 0.3
+
+### 2. Enhanced arXiv Tools (enhanced-arxiv-tools.user.js)
+
+This script enhances the arXiv abstract pages with additional functionality.
+
+**Features:**
+- Adds an "Open in Overleaf" button to open the paper directly in Overleaf.
+- Provides a link to view the paper in HTML5 format using ar5iv.
+- Offers a "GPT辅助阅读" (GPT-assisted reading) link.
+- Includes a "一键翻译" (One-click translation) link for easy translation.
+
+**Usage:**
+1. Install the Tampermonkey extension in your browser.
+2. Add the script to Tampermonkey.
+3. Visit any arXiv abstract page (e.g., https://arxiv.org/abs/******).
+4. Use the new buttons and links added to the page for enhanced functionality.
+
+**Version:** 1.1

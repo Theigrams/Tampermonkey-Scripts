@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name         Enhanced arXiv Tools
 // @namespace    http://tampermonkey.net/
-// @version      1.0
-// @description  Enhances arXiv page with multiple features.
+// @version      1.1
+// @description  Enhances arXiv page with multiple features: Open in Overleaf, HTML5 view, GPT-assisted reading, and one-click translation.
 // @author       JinZhang
 // @match        https://arxiv.org/abs/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=arxiv.org
@@ -13,98 +13,63 @@
 (function () {
     'use strict';
 
-    // Function to replace 'v' with 'w' in the URL
-    function replaceVWithW(url) {
-        return url.replace(/arxiv\.org/, 'arxiw.org');
-    }
+    const LINK_COLOR = 'green';
 
-    // Function to add a new link to the list
-    function addNewLink(url, buttonText) {
+    function addNewLink(url, buttonText, clickHandler = null) {
         const list = document.querySelector('.full-text ul');
-
         const newLi = document.createElement('li');
-        newLi.style.color = 'black';
-
         const newLink = document.createElement('a');
+
         newLink.href = url;
         newLink.className = 'abs-button download-format';
         newLink.target = '_blank';
-        newLink.style.color = 'green'; // Set the color for all links
+        newLink.style.color = LINK_COLOR;
+        newLink.textContent = buttonText;
 
-        const linkText = document.createTextNode(buttonText);
-        newLink.appendChild(linkText);
+        if (clickHandler) {
+            newLink.addEventListener('click', clickHandler);
+        }
 
         newLi.appendChild(newLink);
         list.appendChild(newLi);
     }
 
-    // Function to convert the .tar.gz file to a zip file and open in Overleaf
-    function convertToZip() {
-        document.getElementById('overleaf-text').textContent = 'Converting...';
+    function convertToZip(event) {
+        event.preventDefault();
+        const overleafText = event.target;
+        overleafText.textContent = 'Converting...';
         document.body.style.filter = 'blur(2px)';
         document.getElementById('header').style.background = '#4f9c45';
 
         fetch('https://amitness-open-in-overleaf.hf.space/run/predict', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-                data: [document.location.href],
-            }),
+            body: JSON.stringify({ data: [document.location.href] }),
         })
-        .then((response) => response.json())
-        .then((result) => {
+        .then(response => response.json())
+        .then(result => {
             const zipName = result.data[0]['zip_url'];
             const latexZipUrl = `https://amitness-open-in-overleaf.hf.space/file=${zipName}`;
-
             window.location = `https://www.overleaf.com/docs?snip_uri=${latexZipUrl}`;
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            overleafText.textContent = 'Conversion failed';
+            document.body.style.filter = 'none';
+            document.getElementById('header').style.background = '';
         });
     }
 
-    // Add a new link for HTML5 source based on ar5iv project
-    function addHTML5Link() {
-        const prefix = location.pathname;
-        const ul = document.querySelector('.full-text ul');
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        a.href = `https://ar5iv.org${prefix}`;
-        a.innerText = 'HTML5(ar5iv)';
-        a.className = 'abs-button';
-        a.target = '_blank';
-        a.style.color = 'green'; // Set the color for all links
-        li.appendChild(a);
-        ul.appendChild(li);
+    function init() {
+        const arxiwUrl = window.location.href.replace(/arxiv\.org/, 'arxiw.org');
+        const ar5ivUrl = `https://ar5iv.org${location.pathname}`;
+        const translationUrl = `https://fanyi.youdao.com/trans/#/home?keyfrom=fanyiweb&url=${window.location.href}&type=undefined`;
+
+        addNewLink('#', 'Open in Overleaf', convertToZip);
+        addNewLink(ar5ivUrl, 'HTML5 (ar5iv)');
+        addNewLink(arxiwUrl, 'GPT辅助阅读');
+        addNewLink(translationUrl, '一键翻译');
     }
 
-    // Add "Open in Overleaf" button
-    function addOverleafButton() {
-        const ul = document.querySelector('.full-text ul');
-        const li = document.createElement('li');
-        const a = document.createElement('a');
-        const linkText = document.createTextNode('Open in Overleaf');
-        a.appendChild(linkText);
-        a.href = '#';
-        a.setAttribute('id', 'overleaf-text');
-        a.style.color = 'green'; // Set the color for all links
-        li.appendChild(a);
-        li.addEventListener('click', convertToZip);
-        ul.appendChild(li);
-    }
-
-    // Main script execution
-
-    // Replace 'v' with 'w' in the URL
-    const newURL = replaceVWithW(window.location.href);
-
-    // Add "Open in Overleaf" button
-    addOverleafButton();
-
-    // Add "HTML5(ar5iv)" link
-    addHTML5Link();
-
-    // Add "GPT辅助阅读" link
-    addNewLink(newURL, 'GPT辅助阅读');
-
-    // Add "一键翻译" link
-    addNewLink(`https://fanyi.youdao.com/trans/#/home?keyfrom=fanyiweb&url=${window.location.href}&type=undefined`, '一键翻译');
-
+    init();
 })();
