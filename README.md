@@ -68,17 +68,21 @@ This script adds useful tools to arXiv abstract pages for improved functionality
 
 **Version:** 1.0
 
-This script adds a button to Medium pages to bypass the paywall using freedium.cfd.
+This script adds a button to Medium article pages to bypass the paywall using freedium.cfd.
 
 **Features:**
-- Adds a "Bypass Paywall" button to Medium pages
-- Semi-transparent button with hover effect
+- Dynamically adds a "Bypass Paywall" button to Medium article pages
+- Semi-transparent button with hover effect for better visibility
 - Works on medium.com and custom domain Medium pages
+- Intelligently detects Medium article pages, even with dynamically loaded content
 
 **Usage:**
 1. Visit any Medium article page.
-2. Look for the "Bypass Paywall" button in the bottom right corner.
-3. Click the button to read the full article without restrictions on freedium.cfd.
+2. The script will automatically detect if it's an article page and add the button.
+3. Look for the "Bypass Paywall" button in the bottom right corner.
+4. Click the button to open the article on freedium.cfd, bypassing the paywall.
+
+**Note:** The button only appears on Medium article pages, not on other Medium pages like the homepage or user profiles.
 
 [Install Script](./medium-bypass-button.user.js)
 
